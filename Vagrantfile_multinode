@@ -1,0 +1,25 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+	config.vm.define "node-one" do |app|
+  		app.vm.box = "bento/ubuntu-16.04"
+  		app.vm.network "private_network", ip: "192.168.1.91"
+  		app.vm.provision "shell", path: "config-ansible.sh"
+  		app.vm.provider "virtualbox" do |v|
+  		    v.memory = 512
+  		    v.cpus = 1
+  		end
+	end
+	config.vm.define "node-two" do |app|
+  		app.vm.box = "bento/ubuntu-16.04"
+  		app.vm.network "private_network", ip: "192.168.1.92"
+  		app.vm.provision "shell", path: "config-ansible.sh"
+  		app.vm.provider "virtualbox" do |v|
+  		    v.memory = 512
+  		    v.cpus = 1
+  		end
+	end
+end
